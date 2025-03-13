@@ -1,11 +1,14 @@
 import express from 'express';
 
+import users from './routes/users.ts'
+
 const app = express();
 
 const port = 9000;
 
-app.get('/', (req, res) => {
-  res.send('Hello, Express API with Typescript')
-})
+// Middleware 讓 Express 解析 JSON 
+app.use(express.json())
+
+app.use('/users', users)
 
 app.listen(port)
