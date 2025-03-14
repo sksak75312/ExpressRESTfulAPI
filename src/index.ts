@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use('/users', users);
 
+// 錯誤處理的 Middleware 應放在最後處理
 app.use(errorHandler);
 
 app.listen(process.env.PORT);
