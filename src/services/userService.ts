@@ -1,51 +1,31 @@
+import { UserModel } from '#models/User.js';
 import { User } from '#types/user.ts';
 
-const users: User[] = [
-  { id: 1, name: "Alice", email: "alice@example.com" },
-  { id: 2, name: "Bob", email: "bob@example.com" }
-]
-
 // 取得所有使用者
-export const getUsers = (): User[] => users;
+export const getUsers = async (): Promise<User[]> => await UserModel.find();
 
 //取得單一使用者
-export const getUserById = (id: number): User | undefined => {
-  return users.find(user => user.id === id);
-}
+export const getUserById = async (id: number): Promise<User | null> => await UserModel.findById(id);
 
 // 新增使用者
-export const createUser = (name: string, email: string): User => {
-  const id = users.at(-1)!.id + 1
+export const createUser = async (name: string, email: string): Promise<User> => {
+  const newUser = new UserModel({ name, email });
 
-  const newUser = {
-    id,
-    name,
-    email
-  }
-
-  users.push(newUser)
-
-  return newUser;
+  const savedUser = await newUser.save();
+  return {
+    id: Number(savedUser._id),
+    name: savedUser.name,
+    email: savedUser.email,
+  };
 }
 
 // 更新使用者資料
-export const updateUser = (id: number, name?: string, email?: string): User | null => {
-  const findUser = users.find(user => user.id === Number(id));
-
-  if (findUser) {
-    findUser!.name = name ?? findUser?.name;
-    findUser!.email = email ?? findUser?.email;
-  }
-
-  return findUser ?? null
+export const updateUser = async (id: number, name?: string, email?: string): Promise<User | null> => {
+  return await UserModel.findByIdAndUpdate(id, { name, email }, { new: true });
 }
 
 // 刪除使用者
-export const deleteUser = (id: number): boolean => {
-  const initialLength = users.length;
-  const userIndex = users.findIndex(user => user.id === Number(id));
-  if (userIndex >= 0) {
-    users.splice(userIndex, 1);
-  }
-  return users.length < initialLength;
+export const deleteUser = async (id: number): Promise<boolean> => {
+  const result = await UserModel.findByIdAndDelete(id);
+  return !!result;
 }

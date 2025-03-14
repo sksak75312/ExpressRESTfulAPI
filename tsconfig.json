@@ -15,7 +15,9 @@
       "#services/*": ["./src/services/*"],
       "#types/*": ["./src/types/*"],
       "#routes/*": ["./src/routes/*"],
-      "#constants/*": ["./src/constants/*"]
+      "#constants/*": ["./src/constants/*"],
+      "#models/*": ["./src/models/*"],
+      "#config/*": ["./src/config/*"],
     }
   },
   "include": ["src"]
