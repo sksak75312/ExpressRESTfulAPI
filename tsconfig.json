@@ -9,6 +9,14 @@
     "esModuleInterop": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
+    "paths": {
+      "#controllers/*": ["./src/controllers/*"],
+      "#middlewares/*": ["./src/middlewares/*"],
+      "#services/*": ["./src/services/*"],
+      "#types/*": ["./src/types/*"],
+      "#routes/*": ["./src/routes/*"],
+      "#constants/*": ["./src/constants/*"]
+    }
   },
   "include": ["src"]
 }

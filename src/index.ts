@@ -1,14 +1,16 @@
 import express from 'express';
+import 'dotenv/config';
+import users from '#routes/users.ts';
 
-import users from './routes/users.ts'
+import { errorHandler } from '#middlewares/errorHandler.ts';
 
 const app = express();
 
-const port = 9000;
-
 // Middleware 讓 Express 解析 JSON 
-app.use(express.json())
+app.use(express.json());
 
-app.use('/users', users)
+app.use('/users', users);
 
-app.listen(port)
+app.use(errorHandler);
+
+app.listen(process.env.PORT);
