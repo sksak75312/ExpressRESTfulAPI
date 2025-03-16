@@ -10,7 +10,7 @@ router.get('/', userController.getUsers);
 
 // 取得特定使用者
 router.get('/:id',
-  param("id").isInt().withMessage("User ID must be an integer"),
+  param("id"),
   validateRequest,
   userController.getUserById
 );
@@ -28,7 +28,7 @@ router.post('/',
 // 修改使用者
 router.put('/:id',
   [
-    param("id").isInt().withMessage("User ID must be an integer"),
+    param("id"),
     body("name").optional().notEmpty().withMessage("Name cannot be empty"),
     body("email").optional().isEmail().withMessage("Invalid email format")
   ],
@@ -38,7 +38,7 @@ router.put('/:id',
 
 // 刪除使用者，不用回傳東西就給 send
 router.delete('/:id',
-  param("id").isInt().withMessage("User ID must be an integer"),
+  param("id"),
   validateRequest,
   userController.deleteUser
 );
